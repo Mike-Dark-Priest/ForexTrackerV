@@ -1,0 +1,65 @@
+<div class="container" *ngIf="user">
+    <div class="row w-100 h-100 justify-content-center align-items-center">
+        <div class="auth-box">
+            <!-- sign in  -->
+
+
+            <div *ngIf="!isForgotPassword">
+                <div class="header">
+                    <h2>Welcome Back</h2>
+                    <h4>Log in to your Account using email password </h4>
+                </div>
+
+                <div class="form">
+
+               
+
+                <input  type="email" name="email" [(ngModel)]="user.email" placeholder="Email Address" autocomplete="off">
+                <input  [type]="user.showPassword ? 'text' : 'password'" name="password" placeholder="Password" [(ngModel)]="user.password">
+                
+                <div style="font-size: 12px; margin-top: 6px;">
+                    <input type="checkbox" class="form-check-input" [(ngModel)]="user.showPassword">
+                    <label class="form-check-label">Show Password</label>
+                </div>
+
+                <p class="forgot-password" (click)="forgotPasswordClicked()">Forgot Password?</p>
+                <p>Not a member? <a href="/sign-up">Sign Up</a></p>
+                <button (click)="signInWithCognito()">LOGIN</button>
+            
+        </div>
+    </div>
+         
+
+        <!-- Forgot passsword -->
+
+        <div *ngIf="isForgotPassword">
+            <div class="header">
+                <h2>Account recovery</h2>
+                <h4>Verification code sent to <strong>{{user.email}}</strong></h4>
+            </div>
+
+            <div class="form">
+                <input type="text" placeholder="Enter Verifiocation code" name="verificaCode" [(ngModel)]="user.code">
+                <input  [type]="user.showPassword ? 'text' : 'password'" name="password" placeholder="Enter new Password" [(ngModel)]="newPassword">
+
+                <div style="font-size: 12px; margin: 8px 0">
+                    <input type="checkbox" class="form-check-input" [(ngModel)]="user.showPassword">
+                    <label class="form-check-label">Show Password</label>
+                </div>
+
+                <button (click)="newPasswordSubmit()">SUBMIT NEW PASSWORD</button>
+
+
+
+            </div>
+
+        </div>
+
+
+
+        </div>
+    </div>
+
+</div>
+
+<app-message-modal *ngIf="showAlert" (modalClose)="showAlert=false" [message]="alertMessage"></app-message-modal>
